@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hyperdiv-session"
-version = "0.1.0"
+version = "0.1.1"
 description = "Session management for hyperdiv"
 keywords = ["hyperdiv", "reactive", "ui", "web", "framework", "hyperdiv-session"]
 authors = ["Vladimir Ignatev <ya.na.pochte@gmail.com>"]

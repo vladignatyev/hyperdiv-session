@@ -70,7 +70,7 @@ The cookie signing mechanism is derived from `Django`. We use salted HMAC with `
 This is a work-in-progress software! It may lack required features, contain bugs or breaches. Please create new issue for feature request and bug report.
 
 # TODO
-- [ ] Test coverage 
+- [x] Test coverage 
 - [ ] Make the XSS testing stage
 - [ ] Create documentation and samples
-- [ ] Implement GDPR compliance
+- [x] Implement GDPR compliance
