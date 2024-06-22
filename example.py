@@ -18,6 +18,7 @@ def main():
             if hd.button("Authenticate").clicked:
                 # create new session
                 sid.create_new()
+                sid.gdpr_flag = True  # GDPR consent
 
                 # save session into storage
                 persist(sid.session_id, counter.count)

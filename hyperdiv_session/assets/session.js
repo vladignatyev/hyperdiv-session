@@ -1,30 +1,48 @@
 window.hyperdiv.registerPlugin("session", (ctx) => {
     const sessionCookieName = "hyperdiv-session";
+    let temporarySessionCookie = undefined;
+    let gdprConfirmed = false;
 
-    function setSessionCookie(name, value, maxAgeSeconds) {
-        window.localStorage.setItem(name, value);
+    function setSessionCookie(value) {
+        if (!gdprConfirmed) {
+            temporarySessionCookie = value;
+            return;
+        }
+        window.localStorage.setItem(sessionCookieName, value);
     }
 
-    function getSessionCookie(name) {
-        return window.localStorage.getItem(name);
+    function getSessionCookie() {
+        const storedCookie = window.localStorage.getItem(sessionCookieName);
+        if (storedCookie) {
+            return storedCookie;
+        }
+        else { 
+            return temporarySessionCookie;
+        }
     }
 
-    function deleteSessionCookie(name) {
-        window.localStorage.removeItem(name);
+    function deleteSessionCookie() {
+        window.localStorage.removeItem(sessionCookieName);
     }
     
     ctx.onPropUpdate((propName, propValue) => {
         if (propName === "session_id" && propValue !== "") {
-            setSessionCookie(sessionCookieName, propValue, 60 * 60 * 24 * 7);
+            setSessionCookie(propValue);
         }
         if (propName === "clear_session" && propValue === true) {
-            deleteSessionCookie(sessionCookieName);
+            deleteSessionCookie();
             ctx.updateProp("session_id", "");
             ctx.updateProp("clear_session", false);
         }
+        if (propName === "gdpr_flag" && propValue === true) {
+            gdprConfirmed = true;
+            if (temporarySessionCookie) {
+                setSessionCookie(temporarySessionCookie);
+            }
+        }
     });
     
-    if (getSessionCookie(sessionCookieName)) {
-        ctx.updateProp("session_id", getSessionCookie(sessionCookieName));
+    if (getSessionCookie()) {
+        ctx.updateProp("session_id", getSessionCookie());
     }
 });
