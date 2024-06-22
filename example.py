@@ -14,25 +14,32 @@ def main():
     with hd.box(padding=8, gap=2):
         if not sid.is_authenticated():
             hd.text("Not authenticated yet.")
-        
+
             if hd.button("Authenticate").clicked:
-                sid.create_new() # create new session
-                persist(sid.session_id, counter.count)  # save session into storage
-        
+                # create new session
+                sid.create_new()
+
+                # save session into storage
+                persist(sid.session_id, counter.count)
+
         else:
-            counter.count = load(sid.session_id)  # load state for given session_id from storage
-        
+            # load state for given session_id from storage
+            counter.count = load(sid.session_id)
+
             hd.text("Session demo app.")
             hd.text(sid.session_id)
             hd.text(counter.count)
 
             if hd.button("Increment").clicked:
                 counter.count += 1
-                persist(sid.session_id, counter.count)  # update session state in storage
+
+                # update session state in storage
+                persist(sid.session_id, counter.count)
 
             if hd.button("Log out").clicked:
                 sid.clear()
                 delete(sid.session_id)
+
 
 connect()  # open connection to storage or create a new one
 

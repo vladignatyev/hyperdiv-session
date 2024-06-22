@@ -1,7 +1,8 @@
 '''
-This is a simple storage module that uses pickle to store the session data in a file.
+This is a simple storage module that uses
+pickle to store the session data in a file.
 '''
-import pickle 
+import pickle
 
 storage = {}
 

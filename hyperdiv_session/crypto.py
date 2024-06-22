@@ -24,11 +24,14 @@ def sign(string, secret, salt=session_salt):
     key_salt = force_bytes(salt)
     secret = force_bytes(secret)
     key = hashlib.sha256(key_salt + secret).digest()
-    return hmac.new(key, msg=force_bytes(string), digestmod=hashlib.sha256).hexdigest()
+    return hmac.new(key=key,
+                    msg=force_bytes(string),
+                    digestmod=hashlib.sha256).hexdigest()
 
 
 def verify(string, signature, secret, salt=session_salt):
-    return hmac.compare_digest(force_bytes(signature), force_bytes(sign(string, secret, salt)))
+    return hmac.compare_digest(force_bytes(signature),
+                               force_bytes(sign(string, secret, salt)))
 
 
 def generate_session_id(secret, sep="."):
