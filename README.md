@@ -2,7 +2,8 @@
 Adds the support for sessions to Hyperdiv. This is an essential plugin that enables Hyperdiv users to create authorization flows, data persistence across browser sessions and multiuser support.
 
 # Getting Started
-1. Import this plugin.
+1. `pip install hyperdiv-session`
+1. Import this plugin `from hyperdiv_session import session`.
 2. Initialize this plugin and provide the `secret` string for cookie signing to work.
 3. Handle non-authenticated state, create new session after authentication, persist sessions if required.
 
